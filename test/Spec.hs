@@ -1,7 +1,7 @@
 import System.IO.Silently (capture_)
 import System.Exit (exitFailure)
 import Test.HUnit
-import Lib (someFunc, insertTraceShows, addTrace)
+import Lib ( insertTraceShows, addTrace)
 import Language.Haskell.Exts
 import Data.List (tails, isPrefixOf)  -- <-- Added this import
 
@@ -12,12 +12,6 @@ contains str substr = any (== substr) (tails str)
 -- Helper function to check if a string represents an error
 isError :: String -> Bool
 isError = ("Error" `isPrefixOf`)
-
--- Test for someFunc
-testSomeFunc :: Test
-testSomeFunc = TestCase $ do
-    output <- capture_ someFunc
-    assertEqual "Should print 'someFunc\\n'" "someFunc\n" output
 
 -- Test for insertTraceShows
 testInsertTraceShows :: Test
@@ -43,7 +37,7 @@ testAddTrace = TestCase $ do
 
 main :: IO ()
 main = do
-    counts <- runTestTT $ TestList [testSomeFunc, testInsertTraceShows, testAddTrace]
+    counts <- runTestTT $ TestList [ testInsertTraceShows, testAddTrace]
     if errors counts + failures counts == 0
         then return ()
         else exitFailure  -- You need to import System.Exit for this
