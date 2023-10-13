@@ -29,6 +29,8 @@ dependencies:
 - tasty
 - tasty-hunit
 - silently
+- hspec
+
 
 ghc-options:
 - -Wall

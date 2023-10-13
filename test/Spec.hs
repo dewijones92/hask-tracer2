@@ -1,3 +1,6 @@
+{-# OPTIONS_GHC -F -pgmF hspec-discover #-}
+import qualified TraceTests
+
 import System.IO.Silently (capture_)
 import System.Exit (exitFailure)
 import Test.HUnit
@@ -35,9 +38,7 @@ testAddTrace = TestCase $ do
                     ParseFailed _ _ -> "Error"
     assertEqual "Should add trace to expression" "traceShow (x + y) (x + y)" output
 
+
 main :: IO ()
-main = do
-    counts <- runTestTT $ TestList [ testInsertTraceShows, testAddTrace]
-    if errors counts + failures counts == 0
-        then return ()
-        else exitFailure  -- You need to import System.Exit for this
+main = hspec $ do
+  TraceTests.spec

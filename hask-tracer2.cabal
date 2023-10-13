@@ -39,6 +39,7 @@ library
     , base >=4.7 && <5
     , generic-data
     , haskell-src-exts
+    , hspec
     , silently
     , syb
     , tasty
@@ -61,6 +62,7 @@ executable hask-tracer2-exe
     , generic-data
     , hask-tracer2
     , haskell-src-exts
+    , hspec
     , silently
     , syb
     , tasty
@@ -71,6 +73,7 @@ test-suite hask-tracer2-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      TraceTests
       Paths_hask_tracer2
   autogen-modules:
       Paths_hask_tracer2
@@ -84,6 +87,7 @@ test-suite hask-tracer2-test
     , generic-data
     , hask-tracer2
     , haskell-src-exts
+    , hspec
     , silently
     , syb
     , tasty
