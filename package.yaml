@@ -26,6 +26,9 @@ dependencies:
 - syb
 - HUnit
 - QuickCheck
+- tasty
+- tasty-hunit
+- silently
 
 ghc-options:
 - -Wall

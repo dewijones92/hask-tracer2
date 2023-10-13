@@ -1,7 +1,5 @@
-import Test.HUnit
 import qualified System.Exit as Exit
  
-import Test.HUnit
 import Control.Exception  -- Imports everything
 import Control.Exception (ArithException(..))
 
@@ -10,41 +8,40 @@ import Lib (insertTraceShows, addTrace)  -- Importing functions from your main c
 import Language.Haskell.Exts
 import Data.Generics
 
--- Test for addTrace
-testAddTrace = TestCase (assertEqual "for (addTrace (parseExp \"x\"))," 
-                         (prettyPrint (addTrace (fromParseResult (parseExp "x"))))
-                         "traceShow (x) x")
+import Test.Tasty
+import Test.Tasty.HUnit
+import System.IO.Silently (capture_)
+import Language.Haskell.Exts
+import Lib (someFunc, insertTraceShows, addTrace)  -- Import your Lib module here
 
--- Test for insertTraceShows
-testInsertTraceShows = TestCase (assertEqual "for (insertTraceShows \"x = 5\")," 
-                                 (insertTraceShows "x = 5") 
-                                 "x = traceShow (5) 5")
+main :: IO ()
+main = defaultMain $ testGroup "Lib Tests"
+    [ testCase "test someFunc" testSomeFunc
+    , testCase "test insertTraceShows" testInsertTraceShows
+    , testCase "test addTrace" testAddTrace
+    ]
 
--- Integration Test
-testIntegration = TestCase (do
-  let inputCode = "x = 5"
-  let modifiedCode = insertTraceShows inputCode
-  writeFile "TestOutput.hs" modifiedCode
-  outputCode <- readFile "TestOutput.hs"
-  assertEqual "for the integration test," modifiedCode outputCode)
+testSomeFunc :: Assertion
+testSomeFunc = do
+    output <- capture_ someFunc
+    output @?= "someFunc\n"
 
--- Error Handling Test
-testErrorHandling = TestCase (assertThrows (evaluate $ insertTraceShows "x = ") isMyException)
-  where
-    isMyException :: SomeException -> Bool
-    isMyException e = case fromException e of
-                        Just Overflow  -> True
-                        Just Underflow -> True
-                        -- Add more constructors as needed
-                        _              -> False
+testInsertTraceShows :: Assertion
+testInsertTraceShows = do
+    let input = "let x = 5 in x + 3"
+    let expected = "your expected output here"  -- Specify the expected output
+    let output = insertTraceShows input
+    output @?= expected
 
+testAddTrace :: Assertion
+testAddTrace = do
+    let inputExp = parseValidExp "5 + 3"
+    let expectedExp = parseValidExp "traceShow (5 + 3) (5 + 3)"
+    let outputExp = addTrace inputExp
+    prettyPrint outputExp @?= prettyPrint expectedExp
 
-assertThrows :: IO a -> (SomeException -> Bool) -> Assertion
-assertThrows action exceptionPredicate = 
-    handleJust (\e -> if exceptionPredicate e then Just () else Nothing) (const $ return ()) (action >> return ())
-
-
--- Main Function to Run Tests
-main = do
-  _ <- runTestTT $ TestList [testAddTrace, testInsertTraceShows, testIntegration, testErrorHandling]
-  return ()
+-- Utility function to parse an expression and assume it's valid.
+parseValidExp :: String -> Exp SrcSpanInfo
+parseValidExp str = case parseExp str of
+    ParseOk exp -> exp
+    ParseFailed srcLoc err -> error $ show srcLoc ++ ": " ++ err

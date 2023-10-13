@@ -39,7 +39,10 @@ library
     , base >=4.7 && <5
     , generic-data
     , haskell-src-exts
+    , silently
     , syb
+    , tasty
+    , tasty-hunit
   default-language: Haskell2010
 
 executable hask-tracer2-exe
@@ -58,7 +61,10 @@ executable hask-tracer2-exe
     , generic-data
     , hask-tracer2
     , haskell-src-exts
+    , silently
     , syb
+    , tasty
+    , tasty-hunit
   default-language: Haskell2010
 
 test-suite hask-tracer2-test
@@ -78,5 +84,8 @@ test-suite hask-tracer2-test
     , generic-data
     , hask-tracer2
     , haskell-src-exts
+    , silently
     , syb
+    , tasty
+    , tasty-hunit
   default-language: Haskell2010
