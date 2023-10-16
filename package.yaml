@@ -58,12 +58,6 @@ executables:
     - hask-tracer2
 
 tests:
-  hask-tracer2-test:
-    main:                Spec.hs
-    source-dirs:         test
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
-    dependencies:
-    - hask-tracer2
+  spec:
+    defaults: hspec/hspec@main
+    dependencies: hask-tracer2

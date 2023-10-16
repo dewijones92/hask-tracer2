@@ -1,4 +1,4 @@
-module TraceTests where
+module DewiSpec (spec) where
 
 import Test.Hspec
 import Test.HUnit
@@ -9,6 +9,7 @@ spec :: Spec
 spec = do
   describe "Trace insertion" $ do
     it "reads from LibSource.hs, adds trace, and checks output" $ do
+
       -- Read the original source code
       originalCode <- readFile "test/resources/LibSource.hs"
 
