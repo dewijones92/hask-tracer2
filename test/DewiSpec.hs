@@ -12,9 +12,11 @@ spec = do
 
       -- Read the original source code
       originalCode <- readFile "test/resources/LibSource.hs"
+      putStrLn originalCode
 
       -- Add trace using your library function
       let tracedCode = insertTraceShows originalCode
+      putStrLn tracedCode
 
       -- Write the traced code to a new file
       let outputPath = "test/resources/.bin/HERE"
