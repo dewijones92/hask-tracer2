@@ -19,7 +19,7 @@ spec = do
       putStrLn tracedCode
 
       -- Write the traced code to a new file
-      let outputPath = "test/resources/.bin/HERE"
+      let outputPath = "test/resources/.bin/HERE.hs"
       writeFile outputPath tracedCode
 
       -- Read the newly generated file and assert
