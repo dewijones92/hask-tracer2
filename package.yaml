@@ -30,6 +30,8 @@ dependencies:
 - tasty-hunit
 - silently
 - hspec
+- megaparsec
+- text
 
 
 ghc-options:
