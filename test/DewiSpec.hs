@@ -6,7 +6,7 @@ import System.IO (writeFile)
 import Test.Hspec
 import Test.HUnit
 import Lib (insertTraceShows)
-import System.Directory (createDirectoryIfMissing, doesDirectoryExist)
+import System.Directory (createDirectoryIfMissing, doesDirectoryExist, removeDirectory)
 
 -- Function to ensure a directory exists
 ensureDir :: FilePath -> IO ()
@@ -33,6 +33,8 @@ spec = do
       -- Write the traced code to a new file 
       
       let outputPath = "test/resources/.bin/HERE.hs"
+      removeDirectory $ takeDirectory outputPath
+      ensureDir outputPath
       writeFile outputPath tracedCode
 
       -- Read the newly generated file and assert
