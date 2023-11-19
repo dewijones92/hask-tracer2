@@ -78,8 +78,8 @@ test-suite spec
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      BobSpec
       DewiSpec
-      DewiSpec2
       Paths_hask_tracer2
   autogen-modules:
       Paths_hask_tracer2

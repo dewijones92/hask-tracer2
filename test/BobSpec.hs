@@ -1,4 +1,4 @@
-module DewiSpec2 (spec) where
+module BobSpec (spec) where
 
 import Test.Hspec
 import Test.HUnit
