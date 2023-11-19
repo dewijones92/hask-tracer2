@@ -13,7 +13,7 @@ insertTraceShows :: String -> String
 insertTraceShows code = 
     let parsedModule = parseModule code
      in case parsedModule of
-          ParseOk mod -> prettyPrint (everywhere (mkT addTrace) mod)
+          ParseOk mod -> prettyPrint $ everywhere (mkT addTrace) mod
           ParseFailed srcLoc err -> error $ show srcLoc ++ ": " ++ err
 
 addTrace :: Exp SrcSpanInfo -> Exp SrcSpanInfo
