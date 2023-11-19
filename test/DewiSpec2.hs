@@ -5,8 +5,8 @@ import Test.HUnit
 
 spec :: Spec
 spec = do
-  describe "function parse 2" $ do
+  describe "function parse 2" $
     it "function parse 2" $ do
-      assertBool "True" True
+      assertBool "True" False
 
 

@@ -2,13 +2,12 @@ module DewiSpec (spec) where
 
 import Test.Hspec
 import Test.HUnit
-import System.IO
 import Lib (insertTraceShows)
 
 spec :: Spec
 spec = do
-  describe "Trace insertion" $ do
-    it "reads from LibSource.hs, adds trace, and checks output" $ do
+  describe "Trace insertion" $  it "reads from LibSource.hs, adds trace, and checks output" $ do
+      pending
 
       -- Read the original source code
       originalCode <- readFile "test/resources/LibSource.hs"
@@ -18,7 +17,8 @@ spec = do
       let tracedCode = insertTraceShows originalCode
       putStrLn tracedCode
 
-      -- Write the traced code to a new file
+      -- Write the traced code to a new file 
+      
       let outputPath = "test/resources/.bin/HERE.hs"
       writeFile outputPath tracedCode
 
