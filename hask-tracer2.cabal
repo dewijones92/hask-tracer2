@@ -38,6 +38,8 @@ library
       HUnit
     , QuickCheck
     , base >=4.7 && <5
+    , directory
+    , filepath
     , generic-data
     , haskell-src-exts
     , hspec
@@ -62,6 +64,8 @@ executable hask-tracer2-exe
       HUnit
     , QuickCheck
     , base >=4.7 && <5
+    , directory
+    , filepath
     , generic-data
     , hask-tracer2
     , haskell-src-exts
@@ -90,6 +94,8 @@ test-suite spec
       HUnit
     , QuickCheck
     , base >=4.7 && <5
+    , directory
+    , filepath
     , generic-data
     , hask-tracer2
     , haskell-src-exts

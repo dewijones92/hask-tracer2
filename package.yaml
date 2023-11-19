@@ -32,6 +32,8 @@ dependencies:
 - hspec
 - megaparsec
 - text
+- directory
+- filepath
 
 
 ghc-options:

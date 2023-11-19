@@ -1,8 +1,21 @@
 module DewiSpec (spec) where
 
+import System.Directory (createDirectoryIfMissing, doesDirectoryExist)
+import System.FilePath (takeDirectory)
+import System.IO (writeFile)
 import Test.Hspec
 import Test.HUnit
 import Lib (insertTraceShows)
+import System.Directory (createDirectoryIfMissing, doesDirectoryExist)
+
+-- Function to ensure a directory exists
+ensureDir :: FilePath -> IO ()
+ensureDir path = do
+    let dir = takeDirectory path
+    dirExists <- doesDirectoryExist dir
+    if not dirExists
+        then createDirectoryIfMissing True dir
+        else return ()
 
 spec :: Spec
 spec = do
