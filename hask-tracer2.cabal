@@ -27,6 +27,7 @@ library
   exposed-modules:
       Lib
       Lib2
+      Lib3
   other-modules:
       Paths_hask_tracer2
   autogen-modules:
@@ -83,6 +84,7 @@ test-suite spec
   main-is: Spec.hs
   other-modules:
       BobSpec
+      Dewi3Spec
       DewiSpec
       Paths_hask_tracer2
   autogen-modules:
