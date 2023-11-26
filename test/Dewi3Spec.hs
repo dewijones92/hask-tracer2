@@ -19,7 +19,7 @@ ensureDir path = do
 spec :: Spec
 spec = do
   describe "Trace insertion" $  it "reads from LibSource.hs, adds trace, and checks output" $ do
- --   pending
+    pending
 
     originalCode <- readFile "test/resources/LibSource3.hs"
     putStrLn originalCode
