@@ -7,39 +7,17 @@ import Test.Hspec
 import Test.HUnit
 import System.Directory (createDirectoryIfMissing, doesDirectoryExist, removeDirectory, removePathForcibly)
 import Control.Monad ( unless )
-
--- Function to ensure a directory exists
-ensureDir :: FilePath -> IO ()
-ensureDir path = do
-    let dir = takeDirectory path
-    dirExists <- doesDirectoryExist dir
-    unless dirExists $ createDirectoryIfMissing True dir
+import Lib3
+import SourceLib5 (getMiddle)
 
 spec :: Spec
-spec = do
-  describe "Trace insertion" $  it "reads from LibSource.hs, adds trace, and checks output" $ do
-    pending
-
-    originalCode <- readFile "test/resources/LibSource3.hs"
-    putStrLn originalCode
-
-      -- Add trace using your library function
-    let tracedCode = insertTraceShows originalCode
-    putStrLn tracedCode
-
-      -- Write the traced code to a new file 
-
-    let outputPath = "test/resources/.bin/HERE.hs"
-    removePathForcibly $ takeDirectory outputPath
-    ensureDir outputPath
-    writeFile outputPath tracedCode
-
-      -- Read the newly generated file and assert
-    generatedCode <- readFile outputPath
-    assertBool "Trace code should be inserted correctly" $ validateTraceInsertion generatedCode
-
-
--- Check if trace statements have been correctly inserted
-validateTraceInsertion :: String -> Bool
-validateTraceInsertion generatedCode = "traceShow" `elem` words generatedCode
+spec = do 
+  describe "function parse 2" $ do
+    it "should be pending implementation" $
+      pending -- Corrected usage of 'pending'
+    it "function parse 2" $ do
+      let dd = getMiddle "asdsd"
+      putStrLn dd
+      assertBool "True" False
+-- Removed redundant imports
 

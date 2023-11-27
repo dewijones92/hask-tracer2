@@ -2,7 +2,7 @@ module SourceLib5
     ( getMiddle
     ) where
 
-
+asdsasa
 
 getMiddle :: String -> String
 getMiddle sourceString
