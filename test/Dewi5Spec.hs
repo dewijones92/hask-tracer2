@@ -5,9 +5,8 @@ import System.FilePath (takeDirectory)
 import System.IO (writeFile)
 import Test.Hspec
 import Test.HUnit
-import Lib3 (insertTraceShows)
 import System.Directory (createDirectoryIfMissing, doesDirectoryExist, removeDirectory, removePathForcibly)
-import Control.Monad
+import Control.Monad ( unless )
 
 -- Function to ensure a directory exists
 ensureDir :: FilePath -> IO ()

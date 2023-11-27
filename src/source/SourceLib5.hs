@@ -1,11 +1,11 @@
 module SourceLib5
-    ( getMiddle2
+    ( getMiddle
     ) where
 
 
 
-getMiddle2 :: String -> String
-getMiddle2 sourceString
+getMiddle :: String -> String
+getMiddle sourceString
   | isOddLength  = takeMiddle 1
   | otherwise = takeMiddle 2
   where
