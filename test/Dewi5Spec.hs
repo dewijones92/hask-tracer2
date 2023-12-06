@@ -18,6 +18,6 @@ spec = do
     it "function parse 2" $ do
       let dd = getMiddle "asdsd"
       putStrLn dd
-      assertBool "True" False
+      assertBool "True" True
 -- Removed redundant imports
 

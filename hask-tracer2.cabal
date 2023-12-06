@@ -28,6 +28,7 @@ library
       Lib
       Lib2
       Lib3
+      SourceLib5
   other-modules:
       Paths_hask_tracer2
   autogen-modules:

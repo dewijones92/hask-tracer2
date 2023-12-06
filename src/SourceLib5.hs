@@ -1,4 +1,4 @@
-module Source.SourceLib5
+module SourceLib5
     ( getMiddle
     ) where
 
