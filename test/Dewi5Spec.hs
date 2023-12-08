@@ -8,7 +8,7 @@ import Test.HUnit
 import System.Directory (createDirectoryIfMissing, doesDirectoryExist, removeDirectory, removePathForcibly)
 import Control.Monad ( unless )
 import Lib3
-import SourceLib5 (getMiddle)
+import Source.SourceLib5 (getMiddle)
 
 spec :: Spec
 spec = do 

@@ -3,6 +3,7 @@ module Lib3
     ) where
 import Language.Haskell.Exts
 import Data.Generics
+import Source.SourceLib5
 
 
 someFunc :: IO ()
