@@ -9,6 +9,7 @@ import System.Directory (createDirectoryIfMissing, doesDirectoryExist, removeDir
 import Control.Monad ( unless )
 import Lib3
 import Source.SourceLib5 (getMiddle)
+import Tracers.Trace5 (parseHaskellFile, insertTraceShow5)
 
 spec :: Spec
 spec = do 
@@ -16,8 +17,8 @@ spec = do
     it "should be pending implementation" $
       pending -- Corrected usage of 'pending'
     it "function parse 2" $ do
-      let dd = getMiddle "asdsd"
-      putStrLn dd
-      assertBool "True" False
+      parseHaskellFile
+    it "insert trace shows 5" $ do
+      insertTraceShow5
 -- Removed redundant imports
 

@@ -8,7 +8,7 @@ getMiddle sourceString
   | otherwise = takeMiddle 2
   where
     sourceLength = length sourceString
-    isOddLength = sourceLength `mod` 2 /= 0
+    isOddLength = odd sourceLength
     middleIndex = sourceLength `div` 2
     takeMiddle n
       | isOddLength = [sourceString !! middleIndex]
