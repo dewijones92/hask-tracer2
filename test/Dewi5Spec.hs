@@ -19,6 +19,7 @@ spec = do
     it "function parse 2" $ do
       parseHaskellFile
     it "insert trace shows 5" $ do
-      insertTraceShow5
--- Removed redundant imports
+      content <- insertTraceShow5
+      putStrLn content  -- Print the result instead of returning it
+-- Removed or commented out redundant imports
 

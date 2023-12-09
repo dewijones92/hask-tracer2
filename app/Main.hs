@@ -1,10 +1,6 @@
 module Main where
 import Lib   -- Import from Lib
+import qualified HaskellRank.HaskellRankKangeroo as HRK
 
 main :: IO ()
-main = do
-    let inputFilePath = "Input.hs"
-    let outputFilePath = "Output.hs"
-    inputCode <- readFile inputFilePath
-    let modifiedCode = insertTraceShows inputCode
-    writeFile outputFilePath modifiedCode
+main = HRK.main
