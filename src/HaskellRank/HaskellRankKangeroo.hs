@@ -28,7 +28,7 @@ main :: IO ()
 main = do
     [_, k] <- getList
     bill <- getList
-    b <- readLn
+    [b] <- getList
     let result = solve k bill b
     putStrLn $ maybe "Bon Appetit" show result
 
