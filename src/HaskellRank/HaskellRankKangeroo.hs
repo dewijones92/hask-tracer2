@@ -2,6 +2,7 @@ module HaskellRank.HaskellRankKangeroo
     ( main
     ) where
 import Control.Arrow (ArrowChoice(right))
+import Control.Monad (replicateM)
 
 
 excludeNth :: Int -> [a] -> [a]
@@ -26,9 +27,7 @@ solve k bill b
 
 main :: IO ()
 main = do
-    [_, k] <- getList
-    bill <- getList
-    [b] <- getList
+    [[_, k] , bill , [b]] <- replicateM 3 getList
     let result = solve k bill b
     putStrLn $ maybe "Bon Appetit" show result
 
