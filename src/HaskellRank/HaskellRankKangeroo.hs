@@ -22,7 +22,7 @@ solve :: Int --k
 solve k bill b
  | b > actualPrice = Just (b - actualPrice)
  | otherwise = Nothing
- where actualPrice = (sum $ excludeNth k bill) `div` 2
+ where actualPrice = sum (excludeNth k bill) `div` 2
 
 
 main :: IO ()
