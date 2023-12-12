@@ -1,6 +1,7 @@
 module HaskellRank.HaskellRankValley
     ( main, countingValleys, solve
     ) where
+import Control.Monad (replicateM)
 
 -- Define custom data types
 -- Define custom data types
@@ -33,6 +34,5 @@ solve input = do
 
 main :: IO ()
 main = do
-    inputLine <- readLn
-    let pathString = inputLine
-    putStrLn $ solve pathString
+    [_, terrain] <- replicateM 2 readLn
+    putStrLn $ solve terrain
