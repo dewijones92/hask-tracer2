@@ -9,8 +9,9 @@ newtype PageNumber = PageNumber Int deriving (Eq, Show)
 
 solve :: PageCount -> PageNumber -> PageCount
 solve totalNumberOfPages targetPageNumber = PageCount $ min pageTurnsFromFront pageTurnsFromBack
- where pageTurnsFromFront = (totalNumberOfPages `div` 2) - totalNumberOfPages
-             pageTurnsFromBack = totalNumberOfPages `div` 2
+ where
+    pageTurnsFromFront = (totalNumberOfPages `div` 2) - totalNumberOfPages
+    pageTurnsFromBack = totalNumberOfPages `div` 2
 
 
 main :: IO ()
