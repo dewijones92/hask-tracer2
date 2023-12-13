@@ -1,8 +1,6 @@
 module HaskellRank.HaskellRankValley
     ( main, countingValleys, solve
     ) where
-import Control.Monad (replicateM)
-import Language.Haskell.Exts (Literal(Int))
 
 -- Define custom data types
 -- Define custom data types
