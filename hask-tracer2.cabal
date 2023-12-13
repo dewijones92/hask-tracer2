@@ -27,6 +27,7 @@ library
   exposed-modules:
       HaskellRank.HaskellRank04
       HaskellRank.HaskellRank05
+      HaskellRank.HaskellRankBook
       HaskellRank.HaskellRankKangeroo
       HaskellRank.HaskellRankValley
       Lib
