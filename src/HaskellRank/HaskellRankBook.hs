@@ -2,13 +2,19 @@ module HaskellRank.HaskellRankBook
     (
         solve, PageCount, PageNumber, main
     ) where
+
 import Control.Monad
 
-
-
+newtype StkType a = Stk [a]  
 
 newtype PageCount = PageCount Int deriving (Eq, Show)
 newtype PageNumber = PageNumber Int deriving (Eq, Show)
+
+
+
+
+
+
 
 solve :: PageCount -> PageNumber -> PageCount
 solve (PageCount totalPages) (PageNumber targetPage) = PageCount $ min pageTurnsFromFront pageTurnsFromBack
