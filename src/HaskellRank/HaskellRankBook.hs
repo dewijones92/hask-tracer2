@@ -1,6 +1,6 @@
 module HaskellRank.HaskellRankBook
     (
-        solve, PageCount, PageNumber
+        solve, PageCount, PageNumber, main
     ) where
 import Control.Monad
 
@@ -18,13 +18,9 @@ solve (PageCount totalPages) (PageNumber targetPage) = PageCount $ min pageTurns
                         then (totalPages - targetPage) `div` 2
                         else (totalPages - targetPage - 1) `div` 2
 
-
-
--- Assuming `solve` is a defined function
 main :: IO ()
 main = do
     let result = solve (PageCount 3) (PageNumber 4)
     let ff = case result of PageCount n -> n
     [numberOfPages, targetPage] <- replicateM 2 readLn :: IO [Int]
     putStrLn $ show $ solve (PageCount numberOfPages) (PageNumber targetPage)
-

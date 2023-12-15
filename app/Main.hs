@@ -1,6 +1,6 @@
 module Main where
 import Lib   -- Import from Lib
-import qualified HaskellRank.HaskellRankValley as HRK
+import qualified HaskellRank.HaskellRankBook  as HRB
 
 main :: IO ()
-main = HRK.main
+main = HRB.main
