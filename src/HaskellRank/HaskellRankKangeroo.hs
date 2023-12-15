@@ -3,6 +3,7 @@ module HaskellRank.HaskellRankKangeroo
     ) where
 import Control.Arrow (ArrowChoice(right))
 import Control.Monad (replicateM)
+import HaskellRank.HaskellRankBook  as HRB
 
 
 excludeNth :: Int -> [a] -> [a]
@@ -24,6 +25,13 @@ solve k bill b
  | otherwise = Nothing
  where actualPrice = sum (excludeNth k bill) `div` 2
 
+
+dewi :: IO ()
+dewi = do
+    let result = HRB.solve (PageCount 3) (PageNumber 4)
+    let ff = case result of HRB.PageCount n -> n
+    [numberOfPages, targetPage] <- replicateM 2 readLn :: IO [Int]
+    putStrLn $ show $ HRB.solve (PageCount numberOfPages) (PageNumber targetPage)
 
 main :: IO ()
 main = do
