@@ -14,4 +14,7 @@ spec = do
     it "Buget too low" $ do
       let maxPrice = solve 1 [1..10] [1..100]
       assertEqual "should be nothing" Nothing maxPrice
+    it "Empty keyboard and drives should produce Nothing" $ do
+      let maxPrice = solve 1 [] []
+      assertEqual "should be nothing" Nothing maxPrice
 
