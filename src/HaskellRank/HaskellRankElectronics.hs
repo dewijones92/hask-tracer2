@@ -9,11 +9,13 @@ solve :: (Num a, Ord a) =>
  -> [a] -- drives
  -> Maybe a -- most expensive combo
 solve buget keyboards drives
- | null allPossiblePrices = Just maxComboCanAfford
- | otherwise = Nothing
+ | null allPossiblePrices || null allAffordablePrices = Nothing
+ | otherwise = Just maxComboCanAfford
  where
     allPossiblePrices =  [k + d | k <- keyboards, d <- drives]
-    maxComboCanAfford = maximum $ filter (< buget) allPossiblePrices
+    allAffordablePrices = filter (< buget) allPossiblePrices
+    maxComboCanAfford = maximum $ allAffordablePrices
+
 
 main :: IO ()
 main = do
