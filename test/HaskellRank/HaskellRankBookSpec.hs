@@ -3,7 +3,7 @@ import Test.Hspec ( describe, it, Spec )
 import Test.Hspec
 import Test.HUnit
 
-import HaskellRank.HaskellRankBook ( solve, PageCount, PageNumber )
+import HaskellRank.HaskellRankBook ( solve, PageCount(..), PageNumber(..) )
 
 assertEqual' :: (Eq a, Show a) => a -> a -> Assertion
 assertEqual' = assertEqual ""

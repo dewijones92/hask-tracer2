@@ -1,11 +1,9 @@
 module HaskellRank.HaskellRankBook
     (
-        solve, PageCount, PageNumber, main
+        solve, PageCount(..), PageNumber(..), main
     ) where
 
 import Control.Monad
-
-newtype StkType a = Stk [a]  
 
 newtype PageCount = PageCount Int deriving (Eq, Show)
 newtype PageNumber = PageNumber Int deriving (Eq, Show)

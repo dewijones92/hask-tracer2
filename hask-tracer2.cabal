@@ -28,6 +28,7 @@ library
       HaskellRank.HaskellRank04
       HaskellRank.HaskellRank05
       HaskellRank.HaskellRankBook
+      HaskellRank.HaskellRankElectronics
       HaskellRank.HaskellRankKangeroo
       HaskellRank.HaskellRankValley
       Lib
@@ -96,6 +97,7 @@ test-suite spec
       DewiSpec
       HaskellRank.HaskellRank04Spec
       HaskellRank.HaskellRankBookSpec
+      HaskellRank.HaskellRankElectronicsSpec
       HaskellRank.HaskellRankValleySpec
       Paths_hask_tracer2
   autogen-modules:
