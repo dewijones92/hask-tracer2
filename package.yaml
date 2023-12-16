@@ -34,6 +34,7 @@ dependencies:
 - text
 - directory
 - filepath
+- rio
 
 
 ghc-options:

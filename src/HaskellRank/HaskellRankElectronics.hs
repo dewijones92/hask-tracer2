@@ -2,19 +2,11 @@ module HaskellRank.HaskellRankElectronics
     ( main , solve
     ) where
 import Data.Semigroup
+import RIO.List (maximumMaybe)
 
-solve :: (Num a, Ord a) =>
- a -- buget
- -> [a] -- keyboards
- -> [a] -- drives
- -> Maybe a -- most expensive combo
-solve buget keyboards drives
- | null allPossiblePrices || null allAffordablePrices = Nothing
- | otherwise = Just maxComboCanAfford
- where
-    allPossiblePrices =  [k + d | k <- keyboards, d <- drives]
-    allAffordablePrices = filter (< buget) allPossiblePrices
-    maxComboCanAfford = maximum $ allAffordablePrices
+solve :: (Num a, Ord a) => a -> [a] -> [a] -> Maybe a
+solve budget keyboards drives = maximumMaybe [k + d | k <- keyboards, d <- drives, k + d <= budget]
+
 
 
 main :: IO ()
