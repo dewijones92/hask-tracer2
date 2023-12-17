@@ -29,6 +29,7 @@ library
       HaskellRank.HaskellRank05
       HaskellRank.HaskellRankBook
       HaskellRank.HaskellRankElectronics
+      HaskellRank.HaskellRankMagicSquare
       HaskellRank.HaskellRankValley
       Lib
       Lib2
