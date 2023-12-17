@@ -98,6 +98,7 @@ test-suite spec
       DewiSpec
       HaskellRank.HaskellRank04Spec
       HaskellRank.HaskellRankBookSpec
+      HaskellRank.HaskellRankElectronics2Spec
       HaskellRank.HaskellRankElectronicsSpec
       HaskellRank.HaskellRankValleySpec
       Paths_hask_tracer2
