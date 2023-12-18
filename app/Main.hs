@@ -1,6 +1,6 @@
 module Main where
 import Lib   -- Import from Lib
-import qualified HaskellRank.HaskellRankElectronics  as HRE
+import qualified HaskellRank.HaskellRankMagicSquare  as HMS
 
 main :: IO ()
-main = HRE.main
+main = HMS.main

@@ -101,6 +101,7 @@ test-suite spec
       HaskellRank.HaskellRankBookSpec
       HaskellRank.HaskellRankElectronics2Spec
       HaskellRank.HaskellRankElectronicsSpec
+      HaskellRank.HaskellRankMagicSquareSpec
       HaskellRank.HaskellRankValleySpec
       Paths_hask_tracer2
   autogen-modules:

@@ -11,32 +11,28 @@ import Data.List (transpose)
 
 type Square = [[Int]]
 
-allMagic :: [Square]
-allMagic = undefined
+rot90 :: Square -> Square
+rot90 = map reverse . transpose
 
 pp :: Square -> IO ()
 pp = putStrLn . unlines . map (unwords . map show)
-
--- Function to generate all rotations and reflections of a square
-allRotationsAndReflections :: Square -> [Square]
-allRotationsAndReflections sq = [f r | r <- take 4 (iterate rotate90 sq), f <- [id, reverse, map reverse, reverse . map reverse]]
-  where
-    rotate90 = reverse . transpose
 
 magic :: Square
 magic = [[8,1,6],
                 [3,5,7],
                 [4,9,2]]
-rot90 :: Square -> Square
-rot90 = undefined
 
 refl :: Square -> Square
-refl = undefined
+refl = transpose
 
+allMagic :: [Square]
+allMagic = (take 4 $ iterate rot90 magic) ++ (take 4 $ iterate rot90 $ refl magic)
 
-solve :: Int
-solve = undefined
+distance :: Square -> Square -> Int
+distance s1 s2 =  sum $ map abs $ zipWith (-) (concat s1) (concat s2)
 
+solve :: Square -> Int
+solve s = minimum $ map (distance s) allMagic 
 
 main :: IO ()
 main = do
