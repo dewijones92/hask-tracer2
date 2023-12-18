@@ -34,7 +34,10 @@ distance s1 s2 =  sum $ map abs $ zipWith (-) (concat s1) (concat s2)
 solve :: Square -> Int
 solve s = minimum $ map (distance s) allMagic 
 
+readInts :: String -> [Int]
+readInts = map read . words
+
 main :: IO ()
 main = do
-    square <- replicateM 3 readLn :: IO [[Int]]
-    putStrLn $ show $ 3
+    square <- replicateM 3 (getLine >>= return . readInts)
+    putStrLn $ show $ solve square

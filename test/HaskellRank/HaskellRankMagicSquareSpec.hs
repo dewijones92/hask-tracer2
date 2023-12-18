@@ -13,6 +13,6 @@ spec :: Spec
 spec = do 
   describe "magic square" $ do
     it "Buget too low" $ do
-      let maxPrice = solve [[1,2,3], [4,5,6], [7,8,9]]
-      assertEqual "should be nothing" 24 maxPrice
+      let maxPrice = solve [[4,9,2], [3,5,7], [8,1,5]]
+      assertEqual "should be nothing" 1 maxPrice
 
