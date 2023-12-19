@@ -30,6 +30,7 @@ library
       HaskellRank.HaskellRankBook
       HaskellRank.HaskellRankElectronics
       HaskellRank.HaskellRankMagicSquare
+      HaskellRank.HaskellRankMorse
       HaskellRank.HaskellRankValley
       Lib
       Lib2
@@ -47,6 +48,7 @@ library
       HUnit
     , QuickCheck
     , base >=4.7 && <5
+    , containers
     , directory
     , filepath
     , generic-data
@@ -74,6 +76,7 @@ executable hask-tracer2-exe
       HUnit
     , QuickCheck
     , base >=4.7 && <5
+    , containers
     , directory
     , filepath
     , generic-data
@@ -113,6 +116,7 @@ test-suite spec
       HUnit
     , QuickCheck
     , base >=4.7 && <5
+    , containers
     , directory
     , filepath
     , generic-data
