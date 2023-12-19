@@ -37,6 +37,24 @@ solve s = minimum $ map (distance s) allMagic
 readInts :: String -> [Int]
 readInts = map read . words
 
+unconcat :: [Int] -> Square
+unconcat (x1:x2:x3:xs) = [x1,x2,x3]:unconcat xs
+unconcat _ = []
+
+
+chop :: Int -> [Int] -> [[Int]]
+chop n [] = []
+chop n xs = take n xs : chop n (drop n xs)
+
+
+isMagic :: Square -> Bool
+isMagic s = (== 1) $ length $ nub $ concat [map sum s, 
+                              map sum $ transpose s,
+                               [sum $ map (uncurry (!!)) $ zip s [0..]],
+                               [sum $ map (uncurry (!!)) $ zip (map reverse s) [0..]]
+                              ]
+
+
 main :: IO ()
 main = do
     square <- replicateM 3 (getLine >>= return . readInts)
