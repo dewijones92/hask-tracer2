@@ -1,6 +1,6 @@
 cabal-version: 2.2
 
--- This file has been generated from package.yaml by hpack version 0.36.0.
+-- This file has been generated from package.yaml by hpack version 0.35.2.
 --
 -- see: https://github.com/sol/hpack
 
@@ -31,6 +31,7 @@ library
       HaskellRank.HaskellRankElectronics
       HaskellRank.HaskellRankMagicSquare
       HaskellRank.HaskellRankMorse
+      HaskellRank.HaskellRankTicTacToe
       HaskellRank.HaskellRankValley
       Lib
       Lib2
@@ -47,11 +48,13 @@ library
   build-depends:
       HUnit
     , QuickCheck
+    , array
     , base >=4.7 && <5
     , containers
     , directory
     , filepath
     , generic-data
+    , gloss
     , haskell-src-exts
     , hspec
     , megaparsec
@@ -75,11 +78,13 @@ executable hask-tracer2-exe
   build-depends:
       HUnit
     , QuickCheck
+    , array
     , base >=4.7 && <5
     , containers
     , directory
     , filepath
     , generic-data
+    , gloss
     , hask-tracer2
     , haskell-src-exts
     , hspec
@@ -115,11 +120,13 @@ test-suite spec
   build-depends:
       HUnit
     , QuickCheck
+    , array
     , base >=4.7 && <5
     , containers
     , directory
     , filepath
     , generic-data
+    , gloss
     , hask-tracer2
     , haskell-src-exts
     , hspec ==2.*

@@ -36,6 +36,8 @@ dependencies:
 - filepath
 - rio
 - containers
+- gloss
+- array
 
 
 ghc-options:
