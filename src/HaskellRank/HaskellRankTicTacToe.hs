@@ -16,7 +16,7 @@ cellHeight = fromIntegral screenHeight / fromIntegral n
 
 initialGame = Game { gameBoard = array indexRange $ zip (range indexRange) (cycle [Empty]),
                                      gamePlayer = PlayerX,
-                                     gameState = GameOver (Just PlayerX) }
+                                     gameState  = Running }
                                      where indexRange = ((0,0), (n-1,n-1))
 
 data Cell = Empty | Full Player deriving (Eq, Show)
@@ -30,8 +30,12 @@ data Game = Game { gameBoard :: Board,
 data Player = PlayerX | PlayerO deriving (Eq, Show)
 data State = Running | GameOver (Maybe Player) deriving (Eq,Show)
 
-boardAsPitcure board = Blank
-boardAsGameOverPicture winner board = color (outcomeColor winner) (boardAsPitcure board)
+boardAsRunningPicture board =
+    pictures [ color playerXColor $ xCellsOfBoard board
+             , color playerOColor $ oCellsOfBoard board
+             , color boardGridColor $ boardGrid
+             ]
+
 
 outcomeColor (Just PlayerX) = playerXColor
 outcomeColor (Just PlayerO) = playerOColor
@@ -42,8 +46,16 @@ snapPictureToCell picture (row, column) = translate x y picture
     x = fromIntegral column * cellWidth + cellWidth * 0.5
     y = fromIntegral row * cellHeight + cellHeight * 0.5
 
-xCell = Blank
-oCell = Blank
+xCell :: Picture
+xCell = pictures [ rotate 45.0 $ rectangleSolid side 10.0
+                 , rotate (-45.0) $ rectangleSolid side 10.0
+                 ]
+    where side = min cellWidth cellHeight * 0.75
+
+
+oCell :: Picture
+oCell = thickCircle radius 10.0
+    where radius = min cellWidth cellHeight * 0.25
 
 cellsOfBoard :: Board -> Cell -> Picture -> Picture
 cellsOfBoard board cell cellPicture = pictures $ map (snapPictureToCell cellPicture.fst)  $ filter  (\(_, e) -> e == cell) $ assocs board
@@ -72,7 +84,7 @@ boardGrid =
 
 playerXColor = makeColor 255 50 50 255
 playerOColor = makeColor 50 100 255 255
-boardGridColor = makeColor 255 255 255 255
+boardGridColor = makeColor 255 255 0 255
 
 tieColor =  greyN 0.5
 
@@ -83,17 +95,13 @@ boardAsPicture board =
              , boardGrid
              ]
 
-
-boardAsRunningPicture board =
-    pictures [ color playerXColor $ xCellsOfBoard board
-             , color playerOColor $ oCellsOfBoard board
-             , color boardGridColor $ boardGrid
-             ]
+boardAsGameOverPicture winner board = color (outcomeColor winner) (boardAsPicture board)
 
 
 gameAsPicture :: Game -> Picture
-gameAsPicture game = translate (fromIntegral screenWidth * (-0.5))
-                               (fromIntegral screenHeight * (-0.5))
+gameAsPicture game = 
+    --translate (fromIntegral screenWidth * (-0.5))
+      --                         (fromIntegral screenHeight * (-0.5))
                                frame
     where frame = case gameState game of
                     Running -> boardAsRunningPicture (gameBoard game)
