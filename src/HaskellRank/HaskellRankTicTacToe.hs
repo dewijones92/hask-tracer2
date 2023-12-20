@@ -128,12 +128,14 @@ isCoordCorrect = inRange ((0,0), (n-1, n-1))
 playerTurn :: Game -> (Int, Int) -> Game
 playerTurn game cellCoord
     | isCoordCorrect cellCoord && board ! cellCoord == Empty =
-        game {gameBoard = board}
+        let newBoard = board // [(cellCoord, Full player)]
+            nextPlayer = if player == PlayerX then PlayerO else PlayerX
+        in game { gameBoard = newBoard, gamePlayer = nextPlayer }
     | otherwise = game
     where
         board = gameBoard game
         player = gamePlayer game
-
+    
 
 
 window = InWindow "Functional" (640, 480) (100,100)
