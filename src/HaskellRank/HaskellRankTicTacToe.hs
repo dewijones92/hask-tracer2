@@ -17,7 +17,7 @@ cellWidth = fromIntegral screenWidth / fromIntegral n
 cellHeight = fromIntegral screenHeight / fromIntegral n
 
 initialGame = Game { gameBoard = array indexRange $ zip (range indexRange) (cycle [Empty]),
-                                     gamePlayer = PlayerX,
+                                     gamePlayer = PlayerO,
                                      gameState  = Running }
                                      where indexRange = ((0,0), (n-1,n-1))
 
@@ -110,7 +110,7 @@ gameAsPicture game =
                     GameOver winner -> boardAsGameOverPicture winner (gameBoard game)
 
 mousePodAsCellCoord :: (Float, Float) -> (Int, Int)
-mousePodAsCellCoord (x,y) = (floor ((y + (fromIntegral screenHeight * 0.5)) / cellWidth)
+mousePodAsCellCoord (x,y) = (floor ((y + (fromIntegral screenHeight * 0.5)) / cellHeight)
                                                     , floor ((x + (fromIntegral screenWidth * 0.5)) / cellWidth))
 
 
@@ -130,7 +130,10 @@ playerTurn game cellCoord
     | isCoordCorrect cellCoord && board ! cellCoord == Empty =
         game {gameBoard = board}
     | otherwise = game
-    where board = gameBoard game
+    where
+        board = gameBoard game
+        player = gamePlayer game
+
 
 
 window = InWindow "Functional" (640, 480) (100,100)
