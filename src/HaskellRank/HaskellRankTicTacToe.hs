@@ -4,6 +4,8 @@ module HaskellRank.HaskellRankTicTacToe
 
 import Graphics.Gloss
 import Data.Array
+import Graphics.Gloss.Interface.IO.Game (Event(EventKey), MouseButton (LeftButton))
+import Graphics.Gloss.Interface.IO.Interact
 
 backgroundColor  = makeColor 255 255 255 255
 
@@ -107,7 +109,29 @@ gameAsPicture game =
                     Running -> boardAsRunningPicture (gameBoard game)
                     GameOver winner -> boardAsGameOverPicture winner (gameBoard game)
 
+mousePodAsCellCoord :: (Float, Float) -> (Int, Int)
+mousePodAsCellCoord (x,y) = (floor ((y + (fromIntegral screenHeight * 0.5)) / cellWidth)
+                                                    , floor ((x + (fromIntegral screenWidth * 0.5)) / cellWidth))
+
+
+
+
+transformGame (EventKey (MouseButton LeftButton) Up _ mousePos) game = 
+    case gameState game of
+        Running -> playerTurn game $ mousePodAsCellCoord mousePos
+        GameOver _ ->  initialGame
 transformGame _ game = game
+
+
+isCoordCorrect = inRange ((0,0), (n-1, n-1))
+
+playerTurn :: Game -> (Int, Int) -> Game
+playerTurn game cellCoord
+    | isCoordCorrect cellCoord && board ! cellCoord == Empty =
+        game {gameBoard = board}
+    | otherwise = game
+    where board = gameBoard game
+
 
 window = InWindow "Functional" (640, 480) (100,100)
 
