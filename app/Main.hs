@@ -1,6 +1,6 @@
 module Main where
 import Lib   -- Import from Lib
-import qualified HaskellRank.HaskellRankTicTacToe  as HMS
+import qualified HaskellRank.HaskellMonad  as HMS
 
 main :: IO ()
 main = HMS.main
