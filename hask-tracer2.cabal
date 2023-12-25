@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       HaskellRank.HaskellMonad
+      HaskellRank.HaskellMonoid
       HaskellRank.HaskellRank04
       HaskellRank.HaskellRank05
       HaskellRank.HaskellRankBook
@@ -35,6 +36,7 @@ library
       HaskellRank.HaskellRankTicTacToe
       HaskellRank.HaskellRankValley
       HaskellRank.HaskellTokeniser
+      JsonParser.Main
       Lib
       Lib2
       Lib3
