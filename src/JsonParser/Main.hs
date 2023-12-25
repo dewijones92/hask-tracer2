@@ -1,9 +1,11 @@
+{-# LANGUAGE LambdaCase #-}
 module JsonParser.Main
     ( main
     ) where
 import Data.Char (isDigit)
 import Data.Char (isDigit, digitToInt)
 import Text.Read.Lex (Number)
+import Control.Arrow
 
 data JsonValue =  JsonNull
                                | JsonBool Bool
@@ -16,6 +18,14 @@ data JsonValue =  JsonNull
 jsonValue :: Parser JsonValue
 jsonValue = undefined
 
+--stringP :: [Char] -> Parser [Char]
+--stringP = sequenceA . map charP
+
+instance Functor Parser where
+      fmap f (Parser p) = Parser $ \input -> fmap (second f) (p input)
+
+
+
 newtype Parser a =
      Parser { runParser :: String -> Maybe (String, a) }
 
@@ -23,10 +33,9 @@ jsonNull :: Parser JsonValue
 jsonNull = undefined
 
 charP :: Char -> Parser Char
-charP x = Parser  $ \input ->
-                 case input  of 
-                    y:ys | y == x -> Just ("ddd", 'd')
-                    _ -> Nothing
+charP x = Parser $ \case
+      y:ys | y == x -> Just (ys, x)
+      _ -> Nothing
 
 -- Parses a single digit and returns the rest of the string
 digitParser :: Parser Int
