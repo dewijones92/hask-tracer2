@@ -6,6 +6,7 @@ import Data.Char (isDigit)
 import Data.Char (isDigit, digitToInt)
 import Text.Read.Lex (Number)
 import Control.Arrow
+import GHC.IO.Handle (NewlineMode(inputNL))
 
 data JsonValue =  JsonNull
                                | JsonBool Bool
@@ -22,7 +23,10 @@ jsonValue = undefined
 --stringP = sequenceA . map charP
 
 instance Functor Parser where
-      fmap f (Parser p) = Parser $ \input -> fmap (second f) (p input)
+      fmap f (Parser p) = Parser $ \input -> do
+                        (input', x) <- p input
+                        return (input', f x)
+
 
 
 
