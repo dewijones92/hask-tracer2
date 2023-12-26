@@ -19,7 +19,7 @@ data JsonValue =  JsonNull
                                deriving (Show, Eq)
 
 jsonValue :: Parser JsonValue
-jsonValue = undefined
+jsonValue = jsonNull <|> jsonBool
 
 --stringP :: [Char] -> Parser [Char]
 --stringP = sequenceA . map charP
@@ -37,11 +37,33 @@ instance Applicative Parser where
                                                     (input'', a) <- p2 input'
                                                     Just (input'', f a)
 
+instance Alternative Parser where
+    empty = Parser $ const Nothing
+    (Parser p1) <|> (Parser p2) = Parser $ \input ->
+                                                        p1 input <|> p2 input
+
 newtype Parser a =
      Parser { runParser :: String -> Maybe (String, a) }
 
 jsonNull :: Parser JsonValue
 jsonNull =  (\_ -> JsonNull) <$> stringP "null"
+
+jsonBool :: Parser JsonValue
+jsonBool  = f <$> (stringP "true" <|> stringP "false")
+                    where
+                        f "true" = JsonBool True
+                        f "false" = JsonBool False
+                        f _ = undefined
+
+jsonNumber :: Parser JsonValue
+jsonNumber = undefined
+
+spanP :: (Char -> Bool) -> Parser String
+spanP f = Parser $ \input ->
+                     let (token, rest) = span f input
+                     in Just (rest, token)
+
+
 
 charP :: Char -> Parser Char
 charP x = Parser $ \case
