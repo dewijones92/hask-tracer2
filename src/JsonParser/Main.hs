@@ -8,7 +8,7 @@ import Text.Read.Lex (Number)
 import Control.Arrow
 import GHC.IO.Handle (NewlineMode(inputNL))
 import Control.Applicative
-import Text.Megaparsec.Byte (string)
+import Text.Megaparsec.Byte (string, char)
 import Text.Read (readMaybe)
 
 data JsonValue =  JsonNull
@@ -20,7 +20,7 @@ data JsonValue =  JsonNull
                                deriving (Show, Eq)
 
 jsonValue :: Parser JsonValue
-jsonValue = jsonNull <|> jsonBool <|> jsonNumber
+jsonValue = jsonNull <|> jsonBool <|> jsonNumber <|> jsonString
 
 --stringP :: [Char] -> Parser [Char]
 --stringP = sequenceA . map charP
@@ -69,6 +69,11 @@ jsonNumber = f <$> notNull(spanP isDigit)
   where
     f ds = JsonNumber $ read ds  -- Or JsonError "Invalid number"
 
+stringLiteral :: Parser String
+stringLiteral = spanP (/= '"')
+
+jsonString :: Parser JsonValue
+jsonString = JsonString <$>  (charP '"' *> stringLiteral <* charP '"')
 
 spanP :: (Char -> Bool) -> Parser String
 spanP f = Parser $ \input ->
