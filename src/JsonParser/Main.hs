@@ -20,7 +20,7 @@ data JsonValue =  JsonNull
                                deriving (Show, Eq)
 
 jsonValue :: Parser JsonValue
-jsonValue = jsonNull <|> jsonBool
+jsonValue = jsonNull <|> jsonBool <|> jsonNumber
 
 --stringP :: [Char] -> Parser [Char]
 --stringP = sequenceA . map charP
