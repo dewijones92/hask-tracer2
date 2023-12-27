@@ -56,8 +56,16 @@ jsonBool  = f <$> (stringP "true" <|> stringP "false")
                         f "false" = JsonBool False
                         f _ = undefined
 
+notNull :: Parser [a] -> Parser [a]
+notNull (Parser p) =
+    Parser $ \input -> do
+        (input', xs) <- p input
+        if null xs
+            then Nothing
+            else Just (input', xs)
+
 jsonNumber :: Parser JsonValue
-jsonNumber = f <$> spanP isDigit
+jsonNumber = f <$> notNull(spanP isDigit)
   where
     f ds = JsonNumber $ read ds  -- Or JsonError "Invalid number"
 
