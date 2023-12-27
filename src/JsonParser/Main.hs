@@ -9,6 +9,7 @@ import Control.Arrow
 import GHC.IO.Handle (NewlineMode(inputNL))
 import Control.Applicative
 import Text.Megaparsec.Byte (string)
+import Text.Read (readMaybe)
 
 data JsonValue =  JsonNull
                                | JsonBool Bool
@@ -56,7 +57,10 @@ jsonBool  = f <$> (stringP "true" <|> stringP "false")
                         f _ = undefined
 
 jsonNumber :: Parser JsonValue
-jsonNumber = undefined
+jsonNumber = f <$> spanP isDigit
+  where
+    f ds = maybe JsonNull  JsonNumber (readMaybe ds :: Maybe Integer)  -- Or JsonError "Invalid number"
+
 
 spanP :: (Char -> Bool) -> Parser String
 spanP f = Parser $ \input ->
