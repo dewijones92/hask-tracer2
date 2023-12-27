@@ -59,7 +59,7 @@ jsonBool  = f <$> (stringP "true" <|> stringP "false")
 jsonNumber :: Parser JsonValue
 jsonNumber = f <$> spanP isDigit
   where
-    f ds = maybe JsonNull  JsonNumber (readMaybe ds :: Maybe Integer)  -- Or JsonError "Invalid number"
+    f ds = JsonNumber $ read ds  -- Or JsonError "Invalid number"
 
 
 spanP :: (Char -> Bool) -> Parser String
