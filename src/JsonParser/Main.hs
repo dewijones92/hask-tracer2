@@ -137,12 +137,9 @@ parseFile fileName parser = do
 printOfficeLocations :: FilePath -> IO ()
 printOfficeLocations fileName = do
     jsonData <- parseFile fileName jsonValue
-    case jsonData of
-        Just (JsonObject xs) -> case lookup "officeLocations" xs of
-            Just (JsonArray locations) -> 
-                print [s | JsonString s <- locations]
-            _ -> putStrLn "officeLocations is not an array or not found"
-        _ -> putStrLn "Error: JSON is not an object"
+    case jsonData >>= (\(JsonObject xs) -> lookup "officeLocations" xs) of
+        Just (JsonArray locations) -> print [s | JsonString s <- locations]
+        _ -> putStrLn "Error: Invalid format or missing data"
 
 
 
