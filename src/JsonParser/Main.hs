@@ -10,7 +10,6 @@ import GHC.IO.Handle (NewlineMode(inputNL))
 import Control.Applicative
 import Text.Megaparsec.Byte (string, char)
 import Text.Read (readMaybe)
-import Language.Haskell.Exts (SrcInfo(fileName))
 
 data JsonValue =  JsonNull
                                | JsonBool Bool
@@ -134,24 +133,23 @@ parseFile fileName parser = do
     let readRes = snd <$> runParser parser input
     return readRes
 
--- Function to handle the parsed data and extract office locations
--- Function to handle the parsed data and extract office locations
+-- Refactored printOfficeLocations function
 printOfficeLocations :: FilePath -> IO ()
 printOfficeLocations fileName = do
     jsonData <- parseFile fileName jsonValue
     case jsonData of
         Just (JsonObject xs) -> case lookup "officeLocations" xs of
-            Just (JsonArray locations) -> print $ map fromJsonString locations
-            Just _ -> putStrLn "officeLocations is not an array"
-            Nothing -> putStrLn "officeLocations field not found"
-        Just _ -> putStrLn "JSON is not an object"
-        Nothing -> putStrLn "Error parsing JSON file"
+            Just (JsonArray locations) -> 
+                print [s | JsonString s <- locations]
+            _ -> putStrLn "officeLocations is not an array or not found"
+        _ -> putStrLn "Error: JSON is not an object"
 
 
--- Helper function to convert JsonValue to String
+
+-- Refactored fromJsonString function
 fromJsonString :: JsonValue -> String
 fromJsonString (JsonString s) = s
-fromJsonString _ = error "Not a JsonString"
+fromJsonString _ = "Invalid format"
 
 
 main :: IO ()
