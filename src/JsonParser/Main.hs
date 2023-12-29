@@ -134,5 +134,25 @@ parseFile fileName parser = do
     let readRes = snd <$> runParser parser input
     return readRes
 
+-- Function to handle the parsed data and extract office locations
+-- Function to handle the parsed data and extract office locations
+printOfficeLocations :: FilePath -> IO ()
+printOfficeLocations fileName = do
+    jsonData <- parseFile fileName jsonValue
+    case jsonData of
+        Just (JsonObject xs) -> case lookup "officeLocations" xs of
+            Just (JsonArray locations) -> print $ map fromJsonString locations
+            Just _ -> putStrLn "officeLocations is not an array"
+            Nothing -> putStrLn "officeLocations field not found"
+        Just _ -> putStrLn "JSON is not an object"
+        Nothing -> putStrLn "Error parsing JSON file"
+
+
+-- Helper function to convert JsonValue to String
+fromJsonString :: JsonValue -> String
+fromJsonString (JsonString s) = s
+fromJsonString _ = error "Not a JsonString"
+
+
 main :: IO ()
 main = undefined
