@@ -148,7 +148,6 @@ printOfficeLocations fileName = do
 
 
 
-
 -- Refactored fromJsonString function
 fromJsonString :: JsonValue -> String
 fromJsonString (JsonString s) = s
