@@ -10,6 +10,7 @@ import GHC.IO.Handle (NewlineMode(inputNL))
 import Control.Applicative
 import Text.Megaparsec.Byte (string, char)
 import Text.Read (readMaybe)
+import Language.Haskell.Exts (SrcInfo(fileName))
 
 data JsonValue =  JsonNull
                                | JsonBool Bool
@@ -127,7 +128,11 @@ digitParser = Parser $ \input -> case input of
 parseInt :: Parser Int
 parseInt = Parser $ \s -> Just (tail s, read [head s])
 
-
+parseFile :: FilePath -> Parser a -> IO (Maybe a)
+parseFile fileName parser = do
+    input <- readFile fileName
+    putStrLn input
+    return (snd <$> runParser parser input)
 
 main :: IO ()
 main = undefined
