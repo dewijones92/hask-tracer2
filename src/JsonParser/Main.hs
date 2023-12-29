@@ -131,8 +131,9 @@ parseInt = Parser $ \s -> Just (tail s, read [head s])
 parseFile :: FilePath -> Parser a -> IO (Maybe a)
 parseFile fileName parser = do
     input <- readFile fileName
-    putStrLn input
+ --   putStrLn input
     return (snd <$> runParser parser input)
+
 
 main :: IO ()
 main = undefined

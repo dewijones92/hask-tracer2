@@ -6,15 +6,15 @@
       "menuitem": [
         {
           "value": "New",
-          "onclick": "CreateNewDoc()"
+          "onclick": "CreateNewDoc"
         },
         {
           "value": "Open",
-          "onclick": "OpenDoc()"
+          "onclick": "OpenDoc"
         },
         {
           "value": "Close",
-          "onclick": "CloseDoc()"
+          "onclick": "CloseDoc"
         }
       ]
     }
