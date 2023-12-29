@@ -1,22 +1,57 @@
 {
-  "menu": {
-    "id": "file",
-    "value": "File",
-    "popup": {
-      "menuitem": [
-        {
-          "value": "New",
-          "onclick": "CreateNewDoc"
-        },
-        {
-          "value": "Open",
-          "onclick": "OpenDoc"
-        },
-        {
-          "value": "Close",
-          "onclick": "CloseDoc"
-        }
-      ]
+  "company": "TechCorp",
+  "employees": [
+    {
+      "name": "Alice Johnson",
+      "age": 29,
+      "department": "Development",
+      "skills": ["Java", "Python", "SQL"],
+      "manager": {
+        "name": "Eduardo Ramirez",
+        "age": 41,
+        "department": "Development"
+      }
+    },
+    {
+      "name": "Bob Smith",
+      "age": 35,
+      "department": "Design",
+      "skills": ["Photoshop", "Illustrator", "InDesign"],
+      "manager": null
+    }
+  ],
+  "projects": [
+    {
+      "title": "Project Alpha",
+      "deadline": "2023-06-30",
+      "team": ["Alice Johnson", "Bob Smith"],
+      "details": {
+        "budget": 200000,
+        "objectives": ["Improve UX", "Increase performance"]
+      }
+    },
+    {
+      "title": "Project Beta",
+      "deadline": "2023-09-15",
+      "team": ["Alice Johnson"],
+      "details": {
+        "budget": 150000,
+        "objectives": ["Develop new features", "Optimize codebase"]
+      }
+    }
+  ],
+  "officeLocations": ["New York", "San Francisco", "Berlin"],
+  "remoteWorkPolicy": true,
+  "fiscalYearData": {
+    "2022": {
+      "revenue": 5000000,
+      "expenses": 3000000,
+      "profit": 2000000
+    },
+    "2023": {
+      "revenue": 5500000,
+      "expenses": 3500000,
+      "profit": 2000000
     }
   }
 }

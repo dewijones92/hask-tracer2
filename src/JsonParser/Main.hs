@@ -100,7 +100,7 @@ stringLiteral :: Parser String
 stringLiteral = charP '"' *> spanP (/= '"') <* charP '"'
 
 jsonString :: Parser JsonValue
-jsonString = JsonString <$>  (charP '"' *> stringLiteral <* charP '"')
+jsonString = JsonString <$> stringLiteral
 
 spanP :: (Char -> Bool) -> Parser String
 spanP f = Parser $ \input ->
