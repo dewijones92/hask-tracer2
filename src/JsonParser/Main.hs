@@ -133,13 +133,19 @@ parseFile fileName parser = do
     let readRes = snd <$> runParser parser input
     return readRes
 
--- Refactored printOfficeLocations function
 printOfficeLocations :: FilePath -> IO ()
 printOfficeLocations fileName = do
     jsonData <- parseFile fileName jsonValue
-    case jsonData >>= (\(JsonObject xs) -> lookup "officeLocations" xs) of
-        Just (JsonArray locations) -> print [s | JsonString s <- locations]
-        _ -> putStrLn "Error: Invalid format or missing data"
+    case jsonData of
+        Just (JsonObject obj) -> 
+            case lookup "officeLocations" obj of
+                Just (JsonArray locations) -> print [s | JsonString s <- locations]
+                _ -> printError
+        _ -> printError
+  where
+    printError = putStrLn "Error: Invalid JSON or format"
+
+
 
 
 
