@@ -20,7 +20,7 @@ data JsonValue =  JsonNull
                                deriving (Show, Eq)
 
 jsonValue :: Parser JsonValue
-jsonValue = jsonNull <|> jsonBool <|> jsonNumber <|> jsonString <|> jsonArray
+jsonValue = jsonNull <|> jsonBool <|> jsonNumber <|> jsonString <|> jsonArray <|> jsonObject
 
 ws :: Parser String
 ws = spanP isSpace
@@ -36,6 +36,17 @@ jsonArray = JsonArray <$> (charP '[' *> ws *>
             where
                 elements = sepBy sep jsonValue
                 sep = ws *> charP ',' <* ws
+
+jsonObject :: Parser JsonValue
+jsonObject = JsonObject <$> (charP '{' *> ws *> 
+             sepBy (ws *> charP ',' <* ws) pair
+                  <* ws <*
+                  charP '}')
+    where
+        pair = (\key _ value -> (key, value)) <$> stringLiteral <*>
+               (ws *> charP ':' <* ws) <*>
+               jsonValue
+
 
 --stringP :: [Char] -> Parser [Char]
 --stringP = sequenceA . map charP
@@ -85,7 +96,7 @@ jsonNumber = f <$> notNull(spanP isDigit)
     f ds = JsonNumber $ read ds  -- Or JsonError "Invalid number"
 
 stringLiteral :: Parser String
-stringLiteral = spanP (/= '"')
+stringLiteral = charP '"' *> spanP (/= '"') <* charP '"'
 
 jsonString :: Parser JsonValue
 jsonString = JsonString <$>  (charP '"' *> stringLiteral <* charP '"')
