@@ -1,8 +1,7 @@
 module HaskellRank.HaskellRankJsonSpec (spec) where
-import Test.Hspec ( describe, it, Spec )
 import Test.Hspec
-import Test.HUnit
 import Test.QuickCheck
+    ( Testable(property), quickCheck, Arbitrary(arbitrary), Fun(..) )
 
 import JsonParser.Main
 
