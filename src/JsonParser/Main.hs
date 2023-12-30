@@ -1,8 +1,8 @@
 {-# LANGUAGE LambdaCase #-}
 module JsonParser.Main
-    ( main
+    ( main, Compose
     ) where
-import Data.Char
+import Data.Char ( digitToInt, isDigit, isSpace )
 import Data.Char (isDigit, digitToInt)
 import Text.Read.Lex (Number)
 import Control.Arrow
@@ -154,7 +154,7 @@ fromJsonString (JsonString s) = s
 fromJsonString _ = "Invalid format"
 
 data Compose f g a = Compose {
-    getComposeD :: f (g a)
+    getCompose :: f (g a)
 } deriving Show
 
 instance (Functor f, Functor g) => Functor (Compose f g) where
