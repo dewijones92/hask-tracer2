@@ -5,8 +5,6 @@ import Test.HUnit
 import Test.QuickCheck
 
 import JsonParser.Main
-import JsonParser.Main
-import JsonParser.Main
 
 -- Test for Identity Law
 functorIdentity :: (Functor f, Eq (f a)) => f a -> Bool
@@ -15,6 +13,10 @@ functorIdentity f = fmap id f == f
 -- Test for Composition Law
 functorCompose :: (Eq (f c), Functor f) => Fun a b -> Fun b c -> f a -> Bool
 functorCompose (Fun _ f) (Fun _ g) x = (fmap g . fmap f $ x) == fmap (g . f) x
+
+instance (Eq (f (g a)), Functor f, Functor g) => Eq (Compose f g a) where
+    (Compose x) == (Compose y) = x == y
+
 
 -- Instances for Arbitrary Compose (needed for QuickCheck)
 instance (Arbitrary (f (g a)), Functor f, Functor g) => Arbitrary (Compose f g a) where
@@ -26,6 +28,12 @@ testFunctor = do
     quickCheck (functorIdentity :: Compose [] Maybe Int -> Bool)
     quickCheck (functorCompose :: Fun Int Int -> Fun Int Int -> Compose [] Maybe Int -> Bool)
 
-main :: IO ()
-main = testFunctor
+spec :: Spec
+spec = describe "Your Test Suite" $ do
+    -- Here you can define your test cases
+    it "should pass the Functor Identity Law" $
+        property (functorIdentity :: Compose [] Maybe Int -> Bool)
+    it "should pass the Functor Composition Law" $
+        property (functorCompose :: Fun Int Int -> Fun Int Int -> Compose [] Maybe Int -> Bool)
+
 

@@ -1,6 +1,6 @@
 {-# LANGUAGE LambdaCase #-}
 module JsonParser.Main
-    ( main, Compose
+    ( main, Compose(..)
     ) where
 import Data.Char ( digitToInt, isDigit, isSpace )
 import Data.Char (isDigit, digitToInt)
