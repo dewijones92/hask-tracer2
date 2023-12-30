@@ -1,4 +1,5 @@
 {-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE InstanceSigs #-}
 module JsonParser.Main
     ( main, Compose(..)
     ) where
@@ -159,6 +160,12 @@ data Compose f g a = Compose {
 
 instance (Functor f, Functor g) => Functor (Compose f g) where
     fmap f (Compose c) = Compose ((f <$>)<$> c)
+
+instance (Applicative f, Applicative g) =>
+    Applicative (Compose f g) where
+        pure = Compose . pure . pure
+        Compose c1 <*> Compose c2 = Compose ((<*>) <$> c1 <*> c2)
+
 
 
 main :: IO ()
