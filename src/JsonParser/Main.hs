@@ -153,6 +153,13 @@ fromJsonString :: JsonValue -> String
 fromJsonString (JsonString s) = s
 fromJsonString _ = "Invalid format"
 
+data Compose f g a = Compose {
+    getComposeD :: f (g a)
+} deriving Show
+
+instance (Functor f, Functor g) => Functor (Compose f g) where
+    fmap f (Compose c) = Compose ((f <$>)<$> c)
+
 
 main :: IO ()
 main = undefined
