@@ -17,7 +17,7 @@ frequency :: Float
 frequency = 440 -- Middle A
 
 wave :: [Float]
-wave = map (*volume) $ map sin $ map (*step) [0.0 .. sampleRate]
+wave = map ((*volume).sin.(*step)) [0.0 .. sampleRate]
   where step = 2 * pi * frequency / sampleRate
 
 save :: IO ()
