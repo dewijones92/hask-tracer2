@@ -7,6 +7,7 @@ import qualified Data.ByteString.Builder as B.B
 import qualified Data.Foldable as Data
 import Data.Foldable
 import Test.QuickCheck (sample)
+import Data.List
 
 type Seconds = Float
 type Samples = Float
@@ -33,11 +34,12 @@ note :: Semitones -> Seconds -> [Pulse]
 note n duration = freq (f n) duration
 
 freq :: Hz -> Seconds -> [Pulse]
-freq hz duration = map (*volume) $ zipWith (*) attack output
+freq hz duration = map (*volume) $ zipWith3 (\x y z -> x *y *z) attack release output
   where
     step = (hz * 2 * pi) / sampleRate
     attack :: [Pulse]
-    attack = [1.0,1.01..]
+    attack =   map (min 1) [0,0.001..]
+    release = reverse $ take (length output) attack
     output = map ((*volume).sin.(*step)) [0.0 .. sampleRate * duration]
 
 
