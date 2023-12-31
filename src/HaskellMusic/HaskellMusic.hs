@@ -19,6 +19,9 @@ volume = 0.5
 sampleRate :: Samples
 sampleRate = 48000
 
+pitchStandard :: Hz
+pitchStandard = 440.0
+
 frequency :: Float
 frequency = 440 -- Middle A
 
@@ -30,7 +33,7 @@ freq hz duration = map ((*volume).sin.(*step)) [0.0 .. sampleRate * duration]
     step = (hz * 2 * pi) / sampleRate
 
 wave :: [Pulse]
-wave = concat [freq 440 1.0, freq 540.0 1.0]
+wave = concat $ [ freq (pitchStandard/10 + i*100) 0.1 | i <- [0..100]]
 
 
 
