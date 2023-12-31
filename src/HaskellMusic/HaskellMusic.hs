@@ -11,6 +11,7 @@ import Test.QuickCheck (sample)
 type Seconds = Float
 type Samples = Float
 type Hz = Float
+type Semitones = Float
 type Pulse = Float
 
 volume :: Float
@@ -25,7 +26,11 @@ pitchStandard = 440.0
 frequency :: Float
 frequency = 440 -- Middle A
 
+f :: Semitones -> Hz
+f n = pitchStandard * (2 ** (1.0 / 12.0)) ** n
 
+note :: Semitones -> Seconds -> [Pulse]
+note n duration = freq (f n) duration
 
 freq :: Hz -> Seconds -> [Pulse]
 freq hz duration = map ((*volume).sin.(*step)) [0.0 .. sampleRate * duration]
@@ -33,8 +38,8 @@ freq hz duration = map ((*volume).sin.(*step)) [0.0 .. sampleRate * duration]
     step = (hz * 2 * pi) / sampleRate
 
 wave :: [Pulse]
-wave = concat $ [ freq (pitchStandard/10 + i*100) duration | i <- [0..100]]
-  where duration = 2
+wave = concat $ [ note  (2*i) duration| i <- [0..10]]
+  where duration = 1.0
 
 
 
