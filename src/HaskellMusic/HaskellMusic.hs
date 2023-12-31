@@ -25,18 +25,13 @@ frequency = 440 -- Middle A
 
 
 freq :: Hz -> Seconds -> [Pulse]
-frez hz duration = map ((*volume).sin.(*step)) [0.0 .. sampleRate * duration]
+freq hz duration = map ((*volume).sin.(*step)) [0.0 .. sampleRate * duration]
   where
     step = (hz * 2 * pi) / sampleRate
 
 wave :: [Pulse]
-wave = freq hz duration
-  where 
-    duration :: Seconds
-    duration = 2.0
-    step = (hz * 2 * pi) / sampleRate
-    hz :: Float
-    hz = 440.0
+wave = concat [freq 440 1.0, freq 540.0 1.0]
+
 
 
 
