@@ -10,12 +10,18 @@ import Data.Foldable
 volume :: Float
 volume = 0.5
 
+sampleRate :: Float
+sampleRate = 48000
+
+frequency :: Float
+frequency = 440 -- Middle A
+
 wave :: [Float]
-wave = map (*volume) $ map sin $ map (*step) [0.0 .. 4800]
-  where step = 0.01
+wave = map (*volume) $ map sin $ map (*step) [0.0 .. sampleRate]
+  where step = 2 * pi * frequency / sampleRate
 
 save :: IO ()
-save = B.L.writeFile "output.bin" $ B.B.toLazyByteString $ fold $ map B.B.floatBE  wave
+save = B.L.writeFile "output.bin" $ B.B.toLazyByteString $ fold $ map B.B.floatBE wave
 
 main :: IO ()
-main = undefined
+main = save
