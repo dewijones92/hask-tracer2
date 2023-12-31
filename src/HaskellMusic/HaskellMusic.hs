@@ -38,8 +38,15 @@ freq hz duration = map ((*volume).sin.(*step)) [0.0 .. sampleRate * duration]
     step = (hz * 2 * pi) / sampleRate
 
 wave :: [Pulse]
-wave = concat $ [ note  (2*i) duration| i <- [0..10]]
-  where duration = 1.0
+wave = concat $ [note 0 duration,
+                             note 2 duration,
+                             note 4 duration,
+                              note 5 duration,
+                              note 7 duration,
+                              note 9 duration,
+                              note 11 duration,
+                              note 12 duration]
+  where duration = 0.5
 
 
 
