@@ -18,7 +18,7 @@ frequency = 440 -- Middle A
 
 wave :: [Float]
 wave = map ((*volume).sin.(*step)) [0.0 .. sampleRate]
-  where step = 2 * pi * frequency / sampleRate
+  where step = 0.05
 
 save :: IO ()
 save = B.L.writeFile "output.bin" $ B.B.toLazyByteString $ fold $ map B.B.floatBE wave
