@@ -33,9 +33,13 @@ note :: Semitones -> Seconds -> [Pulse]
 note n duration = freq (f n) duration
 
 freq :: Hz -> Seconds -> [Pulse]
-freq hz duration = map ((*volume).sin.(*step)) [0.0 .. sampleRate * duration]
+freq hz duration = map (*volume) output
   where
     step = (hz * 2 * pi) / sampleRate
+    attack :: [Pulse]
+    attack = [1.0,1.01..]
+    output = map ((*volume).sin.(*step)) [0.0 .. sampleRate * duration]
+
 
 wave :: [Pulse]
 wave = concat $ [note 0 duration,
