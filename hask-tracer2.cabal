@@ -1,6 +1,6 @@
 cabal-version: 2.2
 
--- This file has been generated from package.yaml by hpack version 0.35.2.
+-- This file has been generated from package.yaml by hpack version 0.36.0.
 --
 -- see: https://github.com/sol/hpack
 
@@ -25,6 +25,7 @@ source-repository head
 
 library
   exposed-modules:
+      HaskellMusic.HaskellMusic
       HaskellRank.HaskellMonad
       HaskellRank.HaskellMonoid
       HaskellRank.HaskellRank04
@@ -54,6 +55,7 @@ library
     , QuickCheck
     , array
     , base >=4.7 && <5
+    , bytestring
     , containers
     , directory
     , filepath
@@ -84,6 +86,7 @@ executable hask-tracer2-exe
     , QuickCheck
     , array
     , base >=4.7 && <5
+    , bytestring
     , containers
     , directory
     , filepath
@@ -127,6 +130,7 @@ test-suite spec
     , QuickCheck
     , array
     , base >=4.7 && <5
+    , bytestring
     , containers
     , directory
     , filepath

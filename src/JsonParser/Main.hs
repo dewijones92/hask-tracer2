@@ -166,6 +166,9 @@ instance (Applicative f, Applicative g) =>
         pure = Compose . pure . pure
         Compose c1 <*> Compose c2 = Compose ((<*>) <$> c1 <*> c2)
 
+instance (Applicative f, Applicative g, Semigroup a) =>
+ Semigroup (Compose f g a) where
+    c1 <> c2 = (<>) <$> c1 <*> c2
 
 
 main :: IO ()
