@@ -3,20 +3,19 @@ module Vetchina.Main
     ) where
 
 import qualified Data.Map as M
-import qualified Data.Text as T
 import Data.Foldable
 import Data.Maybe
  
-newtype Bow = Bow  { bowToMap :: M.Map T.Text Int } deriving (Show )
+newtype Bow = Bow  { bowToMap :: M.Map String Int } deriving (Show )
 
-wordToBow :: T.Text -> Bow
+wordToBow :: String -> Bow
 wordToBow w = Bow $ M.fromList [(w,1)]
  
- wordsCount :: Bow -> Int
- wordsCount (Bow bow) = sum $ map snd $ M.toList bow
+wordsCount :: Bow -> Int
+wordsCount (Bow bow) = sum $ map snd $ M.toList bow
 
-wordProbability :: T.Text -> Bow -> Float
-wordProbability w bow = n/wordCount bow
+wordProbability :: String -> Bow -> Float
+wordProbability w bow = fromIntegral n / fromIntegral (wordsCount bow)
     where n = fromMaybe 0 $ M.lookup w $ bowToMap bow
 
 emptyBow = Bow M.empty
