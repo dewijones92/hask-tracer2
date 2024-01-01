@@ -39,6 +39,7 @@ dependencies:
 - gloss
 - array
 - bytestring
+- text
 
 
 ghc-options:
