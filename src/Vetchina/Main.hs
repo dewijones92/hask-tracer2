@@ -54,10 +54,10 @@ hamBow :: IO Bow
 hamBow = bowFromFolder  (baseDir ++ "train/ham/")
 
 wordProbabilitySpam :: T.Text -> IO Float
-wordProbabilitySpam w =do
+wordProbabilitySpam w = do
     pws <- wordProbability w <$> spamBow
     phs <- wordProbability w <$> hamBow
-   return $  pws / (pws + phs)
+    return $  pws / (pws + phs)
 
 
 main :: IO ()
