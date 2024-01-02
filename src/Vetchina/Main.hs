@@ -48,10 +48,10 @@ bowFromFolder folderPath = do
 baseDir = "/home/dewi/Downloads/Email-Classification-Spam-or-Ham/E-mail_Classification/"
 
 spamBow :: IO Bow
-spamBow = bowFromFolder  (baseDir ++ "spam/")
+spamBow = bowFromFolder  (baseDir ++ "train/spam/")
 
 hamBow :: IO Bow
-hamBow = bowFromFolder  (baseDir ++ "ham/")
+hamBow = bowFromFolder  (baseDir ++ "train/ham/")
 
 main :: IO ()
 main  = do
