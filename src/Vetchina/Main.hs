@@ -42,7 +42,7 @@ bowFromFile  filePath = textToBow. E.decodeUtf8
 bowFromFolder :: FilePath -> IO Bow
 bowFromFolder folderPath = do
     fileNames <- listDirectory folderPath
-    bows <- mapM (\fileName -> bowFromFile (folderPath <> fileName)) fileNames
+    bows <- mapM (bowFromFile . (folderPath <>)) fileNames
     return $ fold bows
 
 baseDir = "/home/dewi/Downloads/Email-Classification-Spam-or-Ham/E-mail_Classification/"
