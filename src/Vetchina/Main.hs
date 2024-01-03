@@ -5,25 +5,51 @@ module Vetchina.Main
 import qualified Data.Map as M
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as E
+import Data.Char
 
 import Data.Foldable
 import Data.Maybe
-import qualified Data.ByteString as T
+import qualified Data.ByteString as BS
 import Graphics.Gloss (text)
 import System.Directory
- 
-newtype Bow = Bow  { bowToMap :: M.Map T.Text Int } deriving (Show, Read )
+import Data.List (sortBy)
+import Text.Printf
+import Data.Function
 
-wordToBow :: T.Text -> Bow
+newtype Word'= Word' T.Text deriving (Show, Read, Eq, Ord)
+
+mkWord :: T.Text -> Word'
+mkWord = Word' . T.toUpper
+
+wordToText :: Word' -> T.Text
+wordToText (Word' t) = t
+
+normalizeTextToWords :: T.Text -> [Word']
+normalizeTextToWords =
+    map mkWord .
+    T.words .
+    T.map (\x -> 
+                    if isAlphaNum x
+                        then x
+                        else ' ')
+
+newtype Bow = Bow  { bowToMap :: M.Map Word' Int } deriving (Show, Read )
+
+wordToBow :: Word' -> Bow
 wordToBow w = Bow $ M.fromList [(w,1)]
 
 textToBow :: T.Text -> Bow
-textToBow = foldMap wordToBow . T.words
+textToBow = foldMap wordToBow . normalizeTextToWords
  
 wordsCount :: Bow -> Int
 wordsCount (Bow bow) = sum $ map snd $ M.toList bow
 
-wordProbability :: T.Text -> Bow -> Float
+summaryBow :: Bow -> IO ()
+summaryBow (Bow bow) = do
+    forM_ (sortBy (compare `on` snd) $ M.toList bow) $
+         \(w,f) -> printf "%s -> %d\n" (wordToText w) f
+
+wordProbability :: Word' -> Bow -> Float
 wordProbability w bow = fromIntegral n / fromIntegral (wordsCount bow)
     where n = fromMaybe 0 $ M.lookup w $ bowToMap bow
 
@@ -37,7 +63,7 @@ instance Monoid Bow where
 
 bowFromFile :: FilePath -> IO Bow
 bowFromFile  filePath = textToBow. E.decodeUtf8
-                                             <$> T.readFile filePath
+                                             <$> BS.readFile filePath
 
 bowFromFolder :: FilePath -> IO Bow
 bowFromFolder folderPath = do
@@ -53,11 +79,12 @@ spamBow = bowFromFolder  (baseDir ++ "train/spam/")
 hamBow :: IO Bow
 hamBow = bowFromFolder  (baseDir ++ "train/ham/")
 
-wordProbabilitySpam :: T.Text -> IO Float
+wordProbabilitySpam :: Word' -> IO Float
 wordProbabilitySpam w = do
     pws <- wordProbability w <$> spamBow
     phs <- wordProbability w <$> hamBow
-    return $  pws / (pws + phs)
+    let ps = pws + phs
+    return $  if ps == 0.0 then 0.0 else pws / (pws + phs)
 
 
 main :: IO ()
