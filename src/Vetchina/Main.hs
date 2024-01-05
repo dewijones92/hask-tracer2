@@ -7,6 +7,7 @@ import qualified Data.Text as T
 import qualified Data.Text.Encoding as E
 import Data.Char
 import Data.Maybe
+import Data.Text.Encoding
 
 import Data.Foldable
 import Data.Maybe
