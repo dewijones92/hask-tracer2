@@ -18,6 +18,7 @@ import Data.List (sortBy)
 import Text.Printf
 import Data.Function
 import qualified GHC.Base as IO
+import qualified Data.ByteString as B
 
 newtype Word'= Word' T.Text deriving (Show, Read, Eq, Ord)
 
@@ -72,15 +73,18 @@ instance Semigroup Bow where
 instance Monoid Bow where
     mempty = emptyBow
 
-bowFromFile :: FilePath -> IO Bow
-bowFromFile  filePath = textToBow. E.decodeUtf8
-                                             <$> BS.readFile filePath
+bowFromFile :: FilePath -> IO (Maybe Bow)
+bowFromFile  filePath = do
+    bytes <- B.readFile filePath
+    return $ case decodeUtf8' bytes of
+        Right text -> Just $ textToBow text
+        Left _ -> Nothing
 
 bowFromFolder :: FilePath -> IO Bow
 bowFromFolder folderPath = do
     fileNames <- listDirectory folderPath
     bows <- mapM (bowFromFile . (folderPath <>)) fileNames
-    return $ fold bows
+    return $ fold $ catMaybes bows
 
 baseDir = "/home/dewi/Downloads/Email-Classification-Spam-or-Ham/E-mail_Classification/"
 
