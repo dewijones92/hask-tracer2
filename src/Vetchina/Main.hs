@@ -87,10 +87,13 @@ data SpamModel = SpamModel
   , hamBow :: Bow
   }
 
+baseDir :: String
+baseDir =   "/home/dewi/code/vetcheena/data"
+
 spamModel :: IO SpamModel
 spamModel = do
-  spam <- bowFromFolder "./data/train/spam/"
-  ham <- bowFromFolder "./data/train/ham/"
+  spam <- bowFromFolder (baseDir ++ "/train/spam/")
+  ham <- bowFromFolder  (baseDir ++ "/train/spam/")
   return $ SpamModel spam ham
 
 seenWord :: Word' -> SpamModel -> Bool
