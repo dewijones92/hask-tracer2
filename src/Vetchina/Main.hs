@@ -100,6 +100,10 @@ spamModel = do
   ham <- bowFromFolder  (baseDir ++ "/train/spam/")
   return $ SpamModel spam ham
 
+freqToProb :: Bow Freq -> Bow Probabilty
+freqToProb bow = Bow $  M.map (\x -> fromIntegral x /n) $ bowToMap bow
+  where n = fromIntegral $ wordsCount bow
+
 seenWord :: Word' -> SpamModel -> Bool
 seenWord w (SpamModel (Bow spamBow) (Bow hamBow)) = isJust sm || isJust hm
   where
