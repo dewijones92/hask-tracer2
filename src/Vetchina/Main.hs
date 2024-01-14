@@ -1,4 +1,6 @@
 {-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE OverloadedStrings #-}
+
 module Vetchina.Main where
 
 import qualified Data.Map as M
@@ -150,6 +152,18 @@ classifyText sm text = (textProbabilitySpam sm text, textProbabilityHam sm text)
 classifyFile :: SpamModel -> FilePath -> IO (Double, Double)
 classifyFile sm filePath = classifyText sm <$> T.readFile filePath
 
+dumpBowCsv :: Show a => Bow a ->FilePath -> IO ()
+dumpBowCsv bow filePath = 
+  writeFile filePath $
+  unlines $
+  map (\(Word' word, value) -> printf "%s,%s" word (show value)) $
+  M.toList $
+  bowToMap bow
+
+{- loadBowCsv :: Read a => FilePath -> IO (Bow a)
+loadBowCsv filePath =   
+ map(\line -> ).  lines <$>  readFile filePath
+ -}
 classifyFolder :: SpamModel -> FilePath -> IO ()
 classifyFolder sm folderPath = do
   fileNames <- listDirectory folderPath
