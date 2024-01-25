@@ -98,9 +98,10 @@ baseDir =   "/home/dewi/code/vetcheena/data"
 
 spamModel :: IO SpamModel
 spamModel = do
-  spam <- bowFromFolder (baseDir ++ "/train/spam/")
-  ham <- bowFromFolder  (baseDir ++ "/train/spam/")
+  spam <- loadBowCsv "./data/spam.csv"
+  ham <- loadBowCsv  "./data/ham.csv"
   return $ SpamModel spam ham
+
 
 freqToProb :: Bow Freq -> Bow Probabilty
 freqToProb bow = Bow $  M.map (\x -> fromIntegral x /n) $ bowToMap bow
@@ -160,10 +161,16 @@ dumpBowCsv bow filePath =
   M.toList $
   bowToMap bow
 
-{- loadBowCsv :: Read a => FilePath -> IO (Bow a)
-loadBowCsv filePath =   
- map(\line -> ).  lines <$>  readFile filePath
- -}
+
+loadBowCsv :: Read a => FilePath -> IO (Bow a)
+loadBowCsv filePath =
+  Bow .
+  M.fromList .
+  map (\line -> let [word, value] = T.splitOn "," line
+                          in (Word' word, read $ T.unpack value)) .
+  T.lines <$>
+  T.readFile filePath
+  
 classifyFolder :: SpamModel -> FilePath -> IO ()
 classifyFolder sm folderPath = do
   fileNames <- listDirectory folderPath
@@ -172,5 +179,20 @@ classifyFolder sm folderPath = do
     stats <- classifyFile sm filePath
     printf "%s -> %s\n" filePath (show stats)
 
+train :: IO ()
+train = do
+  putStrLn "Training Ham..."
+  ham <- freqToProb <$> bowFromFolder   (baseDir ++ "/train/ham/")
+  dumpBowCsv ham "./data/ham.csv"
+  putStrLn "Training Spam.."
+  spam <- freqToProb <$> bowFromFolder  (baseDir ++ "/train/spam/")
+  dumpBowCsv spam "./data/spam.csv"
+
 main :: IO ()
-main = putStrLn "Hello, Haskell!"
+main = do
+  sm <- spamModel
+  putStrLn "Absolute HAM:"
+  classifyFolder sm (baseDir <> "/validate/ham/")
+  putStrLn ""
+  putStrLn "Absolute SPAM:"
+  classifyFolder sm (baseDir <> "/validate/spam/")
